@@ -1,0 +1,55 @@
+class Solution {
+
+    class Pair
+    {
+        char ch;
+        int order;
+
+        Pair(char ch,int order)
+        {
+           this.ch = ch;
+           this.order = order;
+        }
+    }
+
+    public String customSortString(String order, String s) {
+        HashMap<Character,Integer>map = new HashMap<>();
+        int cnt =1;
+        for(int i=0;i<order.length();i++)
+        {
+            char c = order.charAt(i);
+            map.put(c,cnt);
+            cnt++;
+        }
+        
+        String str = "";
+        List<Pair>li = new ArrayList<>();
+        for(int i=0;i<s.length();i++)
+        {
+            char c = s.charAt(i);
+            if(map.get(c)!=null)
+            {
+              int pos = map.get(c);
+              li.add(new Pair(c,pos));
+            }
+            else
+            {
+              str = str + c;
+            }            
+         }
+
+        Collections.sort(li,(p1,p2)->p1.order - p2.order);
+        String ans = "";
+        for(Pair p : li)
+        {
+            char ch = p.ch;
+            ans = ans + ch;
+        }
+        for(int i=0;i<str.length();i++)
+        {
+            ans = ans +str.charAt(i);
+        }
+        return ans;
+       
+    }
+}
