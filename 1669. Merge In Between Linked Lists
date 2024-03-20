@@ -1,0 +1,49 @@
+https://leetcode.com/problems/merge-in-between-linked-lists/?envType=daily-question&envId=2024-03-20
+
+Solution : 
+  /**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+        ListNode h1 = list1;
+        ListNode ath_Node = null;
+        ListNode bth_Node = null;
+        ListNode h2 = list2;
+
+        while(h1.next != null){
+            if(a != 1){
+                h1 = h1.next;
+                a--;
+            }else{
+                break;
+            }
+        }
+        ath_Node = h1;
+        h1 = list1;
+        while(h1.next != null){
+            if(b != 0){
+                h1 = h1.next;
+                b--;
+            }else{
+                break;
+            }
+        }
+        bth_Node = h1;
+
+        ath_Node.next = list2;
+        while(list2.next != null){
+            list2 = list2.next;
+        }
+        list2.next = bth_Node.next;
+
+        return list1;
+    }
+}
