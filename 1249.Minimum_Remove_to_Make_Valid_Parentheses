@@ -1,0 +1,68 @@
+class Solution {
+    public String minRemoveToMakeValid(String s) {
+       int cnt = 0;
+       Stack<Character> st = new Stack();
+        String ans = "";
+        for(int i=0;i<s.length();i++)
+        {
+            char c = s.charAt(i);
+            if(c == '(')
+            {
+                cnt++;
+                st.add(c);
+            }
+            else if(c == ')')
+            {
+                if(cnt == 0)
+                {
+                    continue;
+                }
+                cnt--;
+                st.add(c);
+            }
+            else if(c>='a' && c<='z')
+            {
+                st.add(c);
+            }
+        }
+
+        System.out.println(st.size()+" "+cnt);
+ 
+        String str = "";
+        
+        while(st.size()>0 && cnt > 0)
+        {
+           Character t = st.peek();
+           st.pop();
+           if(t == '(')
+           {
+             cnt--; 
+             continue;
+           }
+           str = str + t;
+        }
+
+        while(st.size()>0 && cnt< 0)
+        {
+           Character t = st.peek();
+           st.pop();
+           if(t == ')')
+           {
+             cnt++;
+             continue;
+           }
+           str = str + t;
+        }
+
+        while(st.size()>0)
+        {
+           Character t = st.peek();
+           st.pop();
+           str = str + t;
+        }
+          
+        StringBuilder sb = new StringBuilder(str);
+        sb.reverse();
+        return sb.toString();
+    }
+}
